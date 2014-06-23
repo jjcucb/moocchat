@@ -43,7 +43,7 @@ class ConditionsController < ApplicationController
     @condition = Condition.new(params[:condition])
 
     respond_to do |format|
-      if @condition.save
+      if @condition.save!
         format.html { redirect_to @condition, notice: 'Condition was successfully created.' }
         format.json { render json: @condition, status: :created, location: @condition }
       else
@@ -59,7 +59,7 @@ class ConditionsController < ApplicationController
     @condition = Condition.find(params[:id])
 
     respond_to do |format|
-      if @condition.update_attributes(params[:condition])
+      if @condition.update_attributes!(params[:condition])
         format.html { redirect_to @condition, notice: 'Condition was successfully updated.' }
         format.json { head :no_content }
       else

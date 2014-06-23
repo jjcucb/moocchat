@@ -41,12 +41,14 @@ class TemplatesController < ApplicationController
   # POST /templates.json
   def create
     @template = Template.new(params[:template])
-
+    p "I got this val"+ "#{@template.html}"
     respond_to do |format|
-      if @template.save
+      if @template.save!
+        p "save"
         format.html { redirect_to template_path(@template), notice: 'Template was successfully created.' }
         format.json { render json: @template, status: :created, location: @template }
       else
+        p "not save"
         format.html { render action: "new" }
         format.json { render json: @template.errors, status: :unprocessable_entity }
       end
@@ -59,7 +61,7 @@ class TemplatesController < ApplicationController
     @template = Template.find(params[:id])
 
     respond_to do |format|
-      if @template.update_attributes(params[:template])
+      if @template.update_attributes!(params[:template])
         format.html { redirect_to @template, notice: 'Template was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,4 +82,9 @@ class TemplatesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  def template_params
+      params.require(:template).permit(:name,:url,:html)
+   end
 end
