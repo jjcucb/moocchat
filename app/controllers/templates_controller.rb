@@ -3,6 +3,7 @@ class TemplatesController < ApplicationController
   # GET /templates.json
   def index
     @templates = Template.all
+    @name = Template.model_name
 
     respond_to do |format|
       format.html # index.html.erb
