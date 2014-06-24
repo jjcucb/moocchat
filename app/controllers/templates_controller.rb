@@ -4,6 +4,7 @@ class TemplatesController < ApplicationController
   def index
     @templates = Template.all
     @name = Template
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @templates }
@@ -14,7 +15,7 @@ class TemplatesController < ApplicationController
   # GET /templates/1.json
   def show
     @template = Template.find(params[:id])
-    @name = Template
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @template }
@@ -25,6 +26,7 @@ class TemplatesController < ApplicationController
   # GET /templates/new.json
   def new
     @template = Template.new
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @template }
@@ -33,7 +35,6 @@ class TemplatesController < ApplicationController
 
   # GET /templates/1/edit
   def edit
-    @name = Template
     @template = Template.find(params[:id])
   end
 
@@ -41,14 +42,12 @@ class TemplatesController < ApplicationController
   # POST /templates.json
   def create
     @template = Template.new(params[:template])
-    p "I got this val"+ "#{@template.html}"
+
     respond_to do |format|
       if @template.save!
-        p "save"
         format.html { redirect_to template_path(@template), notice: 'Template was successfully created.' }
         format.json { render json: @template, status: :created, location: @template }
       else
-        p "not save"
         format.html { render action: "new" }
         format.json { render json: @template.errors, status: :unprocessable_entity }
       end
@@ -59,7 +58,6 @@ class TemplatesController < ApplicationController
   # PUT /templates/1.json
   def update
     @template = Template.find(params[:id])
-
     respond_to do |format|
       if @template.update_attributes!(params[:template])
         format.html { redirect_to @template, notice: 'Template was successfully updated.' }
